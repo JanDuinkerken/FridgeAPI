@@ -13,6 +13,8 @@ CREATE TABLE Item(
     cuantity smallint not null,
     r_date datetime not null,
     constraint ItemPk primary key(itemId),
+    constraint FridgeFK foreign key(fridgeId)
+      references Fridge(fridgeId) on delete cascade,
     constraint validCuantity CHECK (cuantity >= 0)
 ) engine=InnoDB
 
