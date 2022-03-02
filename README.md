@@ -1,7 +1,7 @@
 # FridgeAPI
 Python3 + MySQL REST API for a fridge contents listing app
 
-Dependencies:
+Python dependencies (install with pip3):
 * jsonify
 * flask
 * flask-ext
