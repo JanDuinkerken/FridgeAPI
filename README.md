@@ -7,3 +7,5 @@ Dependencies:
 * flask-ext
 * flask-mysql 
 * pymysql
+* typing
+* datetime
