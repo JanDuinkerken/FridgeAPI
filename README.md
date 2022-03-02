@@ -9,3 +9,8 @@ Dependencies:
 * pymysql
 * typing
 * datetime
+
+To run the development server simply execute the followng command:
+```bash
+python3 rest.py
+```
