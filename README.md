@@ -9,6 +9,7 @@ Python dependencies (install with pip3):
 * pymysql
 * typing
 * datetime
+* cryptography
 
 To run the development server simply execute the followng command:
 ```bash

@@ -4,9 +4,7 @@ DROP TABLE Item;
 CREATE TABLE Fridge(
     fridgeId bigint not null auto_increment,
     location varchar(50) not null,
-    n_items smallint not null,
     constraint FridgePk primary key(fridgeId),
-    constraint validNItems CHECK (n_items >= 0)
 ) engine=InnoDB
 
 CREATE TABLE Item(
@@ -15,9 +13,11 @@ CREATE TABLE Item(
     i_name varchar(50) not null,
     cuantity smallint not null,
     r_date datetime not null,
+    drawer smallint,
     constraint ItemPk primary key(itemId),
     constraint FridgeFK foreign key(fridgeId)
       references Fridge(fridgeId) on delete cascade,
-    constraint validCuantity CHECK (cuantity >= 0)
+    constraint validCuantity CHECK (cuantity >= 0),
+    constraint validDrawer CHECK (drawer >= 0)
 ) engine=InnoDB
 

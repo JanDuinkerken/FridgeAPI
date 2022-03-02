@@ -1,7 +1,7 @@
 import pymysql
 from app import app
 from db import mysql
-from data import all_fridges, add_fridge, delete_fridge
+from data import all_fridges, add_fridge, delete_fridge, delete_items, show_items, add_items, delete_items, update_fridge, not_found
 from flask import jsonify
 from flask import flash, request
 
@@ -17,20 +17,29 @@ def route_all_fridges():
 def route_add_fridge():
     return add_fridge()
 
-@app.route('/delete/fridge/<int:id>', methods=['DELETE'])
+@app.route('/fridges/<int:id>', methods=['DELETE'])
 def route_delete_fridge(id):
     return delete_fridge(id)
 
-@app.errorhandler(404)
-def not_found(error=None):
-    message = {
-        'status' : 404,
-        'message' : 'Not found: ' + request.url,
-    }
-    resp = jsonify(message)
-    resp.status_code = 404
+@app.route('/fridges/<int:id>', methods=['PUT'])
+def route_update_fridge(id):
+    return update_fridge(id)
 
-    return resp
+@app.route('/fridges/<int:id>')
+def route_show_items(id):
+    return show_items(id)
+
+@app.route('/fridges/<int:id>', methods=['POST'])
+def route_add_items(id):
+    return add_items(id)
+
+@app.route('/fridges/<int:f_id>/<int:i_id>', methods=['DELETE'])
+def route_del_items(f_id, i_id):
+    return delete_items(f_id, i_id);
+
+@app.errorhandler(404)
+def route_not_found(error=None):
+    return not_found()
 
 if __name__ == "__main__":
     app.run()
