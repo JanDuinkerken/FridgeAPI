@@ -1,3 +1,6 @@
+DROP TABLE Fridge;
+DROP TABLE Item;
+
 CREATE TABLE Fridge(
     fridgeId bigint not null auto_increment,
     location varchar(50) not null,
