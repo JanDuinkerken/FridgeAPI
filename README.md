@@ -6,3 +6,4 @@ Dependencies:
 * flask
 * flask-ext
 * flask-mysql 
+* pymysql
