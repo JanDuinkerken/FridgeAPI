@@ -30,4 +30,4 @@ python3 rest.py
 
 **TODO**
 * Check if items/fridges exist before trying to update them
-* Updating items
+* Check if updating items works
