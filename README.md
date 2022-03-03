@@ -17,13 +17,16 @@ python3 rest.py
 ```
 
 **Endpoints**
-* [GET] /fridges: List all fridges.
-* [POST] /fridges: Creates new fridge (Location specified in the request body).
-* [PUT] /fridges/<id>: Update fridge (Location specified in the request body).
-* [DELETE] /fridges/<id>: Delete fridge.
-* [GET] /fridges/<id>: List items in fridge
-* [POST] /fridges/<id>: Add item (Data specified in the request body)
-* [DELETE] /fridges/<f_id>/<i_id>: Delete item with id i_id from fridge with id f_id
+| **Method** | **Endpoint**           | **Description**                                                              |
+|------------|------------------------|------------------------------------------------------------------------------|
+| GET        | /fridges               | List all fridges                                                             |
+| POST       | /fridges               | Creates new fridge (Location specified in the request body)                  |
+| PUT        | /fridges/<id>          | Update fridge (Location specified in the request body)                       |
+| DELETE     | /fridges/<id>          | Delete fridge                                                                |
+| GET        | /fridges/<id>          | List items in fridge                                                         |
+| POST       | /fridges/<id>          | Add item (Data specified in the request body)                                |
+| PUT        | /fridges/<f_id>/<i_id> | Update item with id i_id in fridge f_id (Data specified in the request body) |
+| DELETE     | /fridges/<f_id>/<i_id> | Delete item with id i_id from fridge with id f_id                            |
 
 **TODO**
 * Check if items/fridges exist before trying to update them
