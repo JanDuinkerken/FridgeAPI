@@ -128,7 +128,31 @@ def add_items(id):
     finally:
         cur.close()
         conn.close()
-    
+
+def update_items(f_id, i_id):
+    try:
+        _json = request.json
+        _i_name =_json['i_name']
+        _cuantity = _json['cuantity']
+        _drawer = _json['drawer']
+        if _i_name and _cuantity and _drawer and request.method == 'PUT':
+            sql = "UPDATE item SET i_name = %s, cuantity = %s, drawer = %s WHERE fridgeId = %s AND itemId = %s"
+            data = (_i_name, _cuantity, _drawer, f_id, i_id,)
+            conn = mysql.connect()
+            cur = conn.cursor(pymysql.cursors.DictCursor)
+            cur.execute(sql, data)
+            conn.commit()
+            resp = jsonify('Item updated succesfully!')
+            resp.status_code = 200
+            return resp
+        else:
+            not_found()
+    except Exception as e:
+        print(e)
+    finally:
+        cur.close()
+        conn.close()
+
 def delete_items(f_id, i_id):
     try:
         conn = mysql.connect()

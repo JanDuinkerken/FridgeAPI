@@ -4,7 +4,7 @@ DROP TABLE Item;
 CREATE TABLE Fridge(
     fridgeId bigint not null auto_increment,
     location varchar(50) not null,
-    constraint FridgePk primary key(fridgeId),
+    constraint FridgePk primary key(fridgeId)
 ) engine=InnoDB
 
 CREATE TABLE Item(

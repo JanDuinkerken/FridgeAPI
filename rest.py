@@ -1,7 +1,7 @@
 import pymysql
 from app import app
 from db import mysql
-from data import all_fridges, add_fridge, delete_fridge, delete_items, show_items, add_items, delete_items, update_fridge, not_found
+from data import all_fridges, add_fridge, delete_fridge, delete_items, show_items, add_items, delete_items, update_fridge, update_items, not_found
 from flask import jsonify
 from flask import flash, request
 
@@ -32,6 +32,10 @@ def route_show_items(id):
 @app.route('/fridges/<int:id>', methods=['POST'])
 def route_add_items(id):
     return add_items(id)
+
+@app.route('/fridges/<int:f_id>/<int:i_id>', methods=['PUT'])
+def route_update_items(f_id, i_id):
+    return update_items(f_id, i_id)
 
 @app.route('/fridges/<int:f_id>/<int:i_id>', methods=['DELETE'])
 def route_del_items(f_id, i_id):
