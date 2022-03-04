@@ -15,6 +15,8 @@ class Item(TypedDict):
     drawer: int
     r_date: dt.datetime
 
+CHECK_FRIDGE = "SELECT * from fridge where fridgeId = %s"
+
 def all_fridges():
     try:
         conn = mysql.connect()
@@ -61,13 +63,18 @@ def update_fridge(id):
             data = (_location, id,)
             conn = mysql.connect()
             cur = conn.cursor(pymysql.cursors.DictCursor)
-            cur.execute(sql, data)
-            conn.commit()
-            resp = jsonify('Fridge updated succesfully!')
-            resp.status_code = 200
-            return resp
+            cur.execute(CHECK_FRIDGE, (id,))
+            fridges = cur.fetchall()
+            if len(fridges) > 0:
+                cur.execute(sql, data)
+                conn.commit()
+                resp = jsonify('Fridge updated succesfully!')
+                resp.status_code = 200
+                return resp
+            else:
+                return not_found()
         else:
-            not_found()
+            return not_found()
     except Exception as e:
         print(e)
     finally:
@@ -78,11 +85,16 @@ def delete_fridge(id):
     try:
         conn = mysql.connect()
         cur = conn.cursor(pymysql.cursors.DictCursor)
-        cur.execute("DELETE FROM fridge WHERE fridgeId = %s", (id,))
-        conn.commit()
-        resp = jsonify('Fridge deleted succesfully!')
-        resp.status_code = 200
-        return resp
+        cur.execute(CHECK_FRIDGE, (id,))
+        fridges = cur.fetchall()
+        if len(fridges) > 0:
+            cur.execute("DELETE FROM fridge WHERE fridgeId = %s", (id,))
+            conn.commit()
+            resp = jsonify('Fridge deleted succesfully!')
+            resp.status_code = 200
+            return resp
+        else:
+            return not_found()
     except Exception as e:
         print(e)
     finally:
@@ -93,11 +105,16 @@ def show_items(id):
     try:
         conn = mysql.connect()
         cur = conn.cursor(pymysql.cursors.DictCursor)
-        cur.execute("SELECT * from item where fridgeId = %s;", (id,))
-        rows = cur.fetchall()
-        resp = jsonify(rows)
-        resp.status_code = 200
-        return resp
+        cur.execute(CHECK_FRIDGE, (id,))
+        fridges = cur.fetchall()
+        if len(fridges) > 0:
+            cur.execute("SELECT * from item where fridgeId = %s;", (id,))
+            rows = cur.fetchall()
+            resp = jsonify(rows)
+            resp.status_code = 200
+            return resp
+        else:
+            return not_found()
     except Exception as e:
         print(e)
     finally:
@@ -116,13 +133,18 @@ def add_items(id):
             data = (id, _name, _cuantity, _date, _drawer,)
             conn = mysql.connect()
             cur = conn.cursor(pymysql.cursors.DictCursor)
-            cur.execute(sql, data)
-            conn.commit()
-            resp = jsonify('Item added succesfully!')
-            resp.status_code = 200
-            return resp
+            cur.execute(CHECK_FRIDGE, (id,))
+            fridges = cur.fetchall()
+            if len(fridges) > 0:
+                cur.execute(sql, data)
+                conn.commit()
+                resp = jsonify('Item added succesfully!')
+                resp.status_code = 200
+                return resp
+            else:
+                return not_found()
         else:
-            not_found()
+            return not_found()
     except Exception as e:
         print(e)
     finally:
@@ -140,13 +162,18 @@ def update_items(f_id, i_id):
             data = (_i_name, _cuantity, _drawer, f_id, i_id,)
             conn = mysql.connect()
             cur = conn.cursor(pymysql.cursors.DictCursor)
-            cur.execute(sql, data)
-            conn.commit()
-            resp = jsonify('Item updated succesfully!')
-            resp.status_code = 200
-            return resp
+            cur.execute("SELECT * from item where fridgeId = %s and itemId = %s", (f_id, i_id))
+            items = cur.fetchall()
+            if len(items) > 0:
+                cur.execute(sql, data)
+                conn.commit()
+                resp = jsonify('Item updated succesfully!')
+                resp.status_code = 200
+                return resp
+            else:
+                return not_found()
         else:
-            not_found()
+            return not_found()
     except Exception as e:
         print(e)
     finally:
@@ -157,11 +184,16 @@ def delete_items(f_id, i_id):
     try:
         conn = mysql.connect()
         cur = conn.cursor(pymysql.cursors.DictCursor)
-        cur.execute("DELETE FROM item WHERE fridgeId = %s and itemId = %s", (f_id,i_id))
-        conn.commit()
-        resp = jsonify('Item deleted succesfully!')
-        resp.status_code = 200
-        return resp
+        cur.execute("SELECT * from item where fridgeId = %s and itemId = %s", (f_id, i_id))
+        items = cur.fetchall()
+        if len(items) > 0:
+            cur.execute("DELETE FROM item WHERE fridgeId = %s and itemId = %s", (f_id,i_id))
+            conn.commit()
+            resp = jsonify('Item deleted succesfully!')
+            resp.status_code = 200
+            return resp
+        else:
+            return not_found()
     except Exception as e:
         print(e)
     finally:

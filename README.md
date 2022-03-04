@@ -29,5 +29,4 @@ python3 rest.py
 | DELETE     | /fridges/<f_id>/<i_id> | Delete item with id i_id from fridge with id f_id                            |
 
 **TODO**
-* Check if items/fridges exist before trying to update them
 * Deploy on docker
