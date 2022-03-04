@@ -16,6 +16,7 @@ class Item(TypedDict):
     r_date: dt.datetime
 
 CHECK_FRIDGE = "SELECT * from Fridge where fridgeId = %s"
+CHECK_ITEM = "SELECT * from Item where fridgeId = %s and itemId = %s"
 
 def all_fridges():
     try:
@@ -162,7 +163,7 @@ def update_items(f_id, i_id):
             data = (_i_name, _cuantity, _drawer, f_id, i_id,)
             conn = mysql.connect()
             cur = conn.cursor(pymysql.cursors.DictCursor)
-            cur.execute("SELECT * from Item where fridgeId = %s and itemId = %s", (f_id, i_id))
+            cur.execute(CHECK_ITEM, (f_id, i_id))
             items = cur.fetchall()
             if len(items) > 0:
                 cur.execute(sql, data)
@@ -184,7 +185,7 @@ def delete_items(f_id, i_id):
     try:
         conn = mysql.connect()
         cur = conn.cursor(pymysql.cursors.DictCursor)
-        cur.execute("SELECT * from Item where fridgeId = %s and itemId = %s", (f_id, i_id))
+        cur.execute(CHECK_ITEM, (f_id, i_id))
         items = cur.fetchall()
         if len(items) > 0:
             cur.execute("DELETE FROM Item WHERE fridgeId = %s and itemId = %s", (f_id,i_id))
