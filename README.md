@@ -13,7 +13,7 @@ docker-compose up
 The app can also be run with python using the method described below (not recommended). 
 ## Python
 
-To run the development server install the dependencies and, in db.py, change 
+To run the development server install the dependencies and, in db.py, change:
 
 `app.config['MYSQL_DATABASE_HOST'] = 'db'` for `app.config['MYSQL_DATABASE_HOST'] = 'locahost'`
 
