@@ -46,4 +46,4 @@ def route_not_found(error=None):
     return not_found()
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0')

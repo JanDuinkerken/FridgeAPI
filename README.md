@@ -2,7 +2,23 @@
 
 Python3 + MySQL REST API for a fridge contents listing app
 
-## Python dependencies (install with pip3)
+## Usage
+
+To run the server execute install docker and docker-compose and run the following command on the root directory:
+
+```bash
+docker-compose up
+```
+
+The app can also be run with python using the method described bellow (not recommended). 
+## Python
+
+To run the development server install the dependencies and simply execute the followng command:
+
+```bash
+python3 rest.py
+```
+### Dependencies
 
 * jsonify
 * flask
@@ -10,14 +26,9 @@ Python3 + MySQL REST API for a fridge contents listing app
 * flask-mysql
 * pymysql
 * typing
+* typing_extensions
 * datetime
 * cryptography
-
-To run the development server simply execute the followng command:
-
-```bash
-python3 rest.py
-```
 
 ## Endpoints
 
@@ -32,6 +43,3 @@ python3 rest.py
 | PUT        | `/fridges/<f_id>/<i_id>` | Update item with id i_id in fridge f_id (Data specified in the request body) |
 | DELETE     | `/fridges/<f_id>/<i_id>` | Delete item with id i_id from fridge with id f_id                            |
 
-## TODO
-
-* Deploy on docker

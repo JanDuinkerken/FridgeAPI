@@ -1,0 +1,9 @@
+flask
+flask-ext
+flask-mysql
+pymysql
+jsonify
+typing
+typing_extensions
+datetime
+cryptography

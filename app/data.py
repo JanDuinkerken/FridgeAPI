@@ -15,13 +15,13 @@ class Item(TypedDict):
     drawer: int
     r_date: dt.datetime
 
-CHECK_FRIDGE = "SELECT * from fridge where fridgeId = %s"
+CHECK_FRIDGE = "SELECT * from Fridge where fridgeId = %s"
 
 def all_fridges():
     try:
         conn = mysql.connect()
         cur = conn.cursor(pymysql.cursors.DictCursor)
-        cur.execute("SELECT * from fridge;")
+        cur.execute("SELECT * from Fridge;")
         rows = cur.fetchall()
         resp = jsonify(rows)
         resp.status_code = 200
@@ -37,7 +37,7 @@ def add_fridge():
         _json = request.json
         _location = _json['location']
         if _location and request.method == 'POST':
-            sql = "INSERT INTO fridge (location) VALUES (%s)"
+            sql = "INSERT INTO Fridge (location) VALUES (%s)"
             data = (_location,)
             conn = mysql.connect()
             cur = conn.cursor(pymysql.cursors.DictCursor)
@@ -59,7 +59,7 @@ def update_fridge(id):
         _json = request.json
         _location =_json['location']
         if _location and request.method == 'PUT':
-            sql = "UPDATE fridge SET location = %s WHERE fridgeId = %s"
+            sql = "UPDATE Fridge SET location = %s WHERE fridgeId = %s"
             data = (_location, id,)
             conn = mysql.connect()
             cur = conn.cursor(pymysql.cursors.DictCursor)
@@ -88,7 +88,7 @@ def delete_fridge(id):
         cur.execute(CHECK_FRIDGE, (id,))
         fridges = cur.fetchall()
         if len(fridges) > 0:
-            cur.execute("DELETE FROM fridge WHERE fridgeId = %s", (id,))
+            cur.execute("DELETE FROM Fridge WHERE fridgeId = %s", (id,))
             conn.commit()
             resp = jsonify('Fridge deleted succesfully!')
             resp.status_code = 200
@@ -108,7 +108,7 @@ def show_items(id):
         cur.execute(CHECK_FRIDGE, (id,))
         fridges = cur.fetchall()
         if len(fridges) > 0:
-            cur.execute("SELECT * from item where fridgeId = %s;", (id,))
+            cur.execute("SELECT * from Item where fridgeId = %s;", (id,))
             rows = cur.fetchall()
             resp = jsonify(rows)
             resp.status_code = 200
@@ -129,7 +129,7 @@ def add_items(id):
         _drawer = _json['drawer']
         _date = (dt.datetime.today()).strftime('%Y-%m-%d %H:%M:%S')
         if  _name and _cuantity and _date and _drawer and request.method == 'POST':
-            sql = "INSERT INTO item (fridgeId, i_name, cuantity, r_date, drawer) VALUES( %s, %s, %s, %s, %s)"
+            sql = "INSERT INTO Item (fridgeId, i_name, cuantity, r_date, drawer) VALUES( %s, %s, %s, %s, %s)"
             data = (id, _name, _cuantity, _date, _drawer,)
             conn = mysql.connect()
             cur = conn.cursor(pymysql.cursors.DictCursor)
@@ -158,11 +158,11 @@ def update_items(f_id, i_id):
         _cuantity = _json['cuantity']
         _drawer = _json['drawer']
         if _i_name and _cuantity and _drawer and request.method == 'PUT':
-            sql = "UPDATE item SET i_name = %s, cuantity = %s, drawer = %s WHERE fridgeId = %s AND itemId = %s"
+            sql = "UPDATE Item SET i_name = %s, cuantity = %s, drawer = %s WHERE fridgeId = %s AND itemId = %s"
             data = (_i_name, _cuantity, _drawer, f_id, i_id,)
             conn = mysql.connect()
             cur = conn.cursor(pymysql.cursors.DictCursor)
-            cur.execute("SELECT * from item where fridgeId = %s and itemId = %s", (f_id, i_id))
+            cur.execute("SELECT * from Item where fridgeId = %s and itemId = %s", (f_id, i_id))
             items = cur.fetchall()
             if len(items) > 0:
                 cur.execute(sql, data)
@@ -184,10 +184,10 @@ def delete_items(f_id, i_id):
     try:
         conn = mysql.connect()
         cur = conn.cursor(pymysql.cursors.DictCursor)
-        cur.execute("SELECT * from item where fridgeId = %s and itemId = %s", (f_id, i_id))
+        cur.execute("SELECT * from Item where fridgeId = %s and itemId = %s", (f_id, i_id))
         items = cur.fetchall()
         if len(items) > 0:
-            cur.execute("DELETE FROM item WHERE fridgeId = %s and itemId = %s", (f_id,i_id))
+            cur.execute("DELETE FROM Item WHERE fridgeId = %s and itemId = %s", (f_id,i_id))
             conn.commit()
             resp = jsonify('Item deleted succesfully!')
             resp.status_code = 200

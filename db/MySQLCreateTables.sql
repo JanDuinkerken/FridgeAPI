@@ -1,11 +1,11 @@
-DROP TABLE Fridge;
-DROP TABLE Item;
+CREATE DATABASE inventory;
+USE inventory;
 
 CREATE TABLE Fridge(
     fridgeId bigint not null auto_increment,
     location varchar(50) not null,
     constraint FridgePk primary key(fridgeId)
-) engine=InnoDB
+) engine=InnoDB;
 
 CREATE TABLE Item(
     itemId bigint not null auto_increment,
@@ -19,5 +19,5 @@ CREATE TABLE Item(
       references Fridge(fridgeId) on delete cascade,
     constraint validCuantity CHECK (cuantity >= 0),
     constraint validDrawer CHECK (drawer >= 0)
-) engine=InnoDB
+) engine=InnoDB;
 
