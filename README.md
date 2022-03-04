@@ -4,13 +4,13 @@ Python3 + MySQL REST API for a fridge contents listing app
 
 ## Usage
 
-To run the server execute install docker and docker-compose and run the following command on the root directory:
+To run the server install `docker` and `docker-compose` and run the following command on the root directory:
 
 ```bash
 docker-compose up
 ```
 
-The app can also be run with python using the method described bellow (not recommended). 
+The app can also be run with python using the method described below (not recommended). 
 ## Python
 
 To run the development server install the dependencies and simply execute the followng command:
