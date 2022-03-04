@@ -30,7 +30,7 @@ python3 rest.py
 * datetime
 * cryptography
 
-## Endpoints
+# Endpoints
 
 | **Method** | **Endpoint**           | **Description**                                                              |
 |------------|------------------------|------------------------------------------------------------------------------|
