@@ -10,7 +10,8 @@ To run the server install `docker` and `docker-compose` and run the following co
 docker-compose up
 ```
 
-The app can also be run with python using the method described below (not recommended). 
+The app can also be run with python using the method described below (not recommended).
+
 ## Python
 
 To run the development server install the dependencies and, in db.py, change:
@@ -22,6 +23,7 @@ Then simply execute the followng command:
 ```bash
 python3 rest.py
 ```
+
 ### Dependencies
 
 * jsonify
@@ -34,7 +36,7 @@ python3 rest.py
 * datetime
 * cryptography
 
-# Endpoints
+## Endpoints
 
 | **Method** | **Endpoint**           | **Description**                                                              |
 |------------|------------------------|------------------------------------------------------------------------------|
@@ -46,4 +48,3 @@ python3 rest.py
 | POST       | `/fridges/<f_id>`        | Add item (Data specified in the request body)                                |
 | PUT        | `/fridges/<f_id>/<i_id>` | Update item with id i_id in fridge f_id (Data specified in the request body) |
 | DELETE     | `/fridges/<f_id>/<i_id>` | Delete item with id i_id from fridge with id f_id                            |
-
